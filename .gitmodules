@@ -1,0 +1,3 @@
+[submodule "references/crypto-algorithms"]
+	path = references/crypto-algorithms
+	url = git@github.com:B-Con/crypto-algorithms.git
