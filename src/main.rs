@@ -172,7 +172,7 @@ pub mod hashing {
         }
     }
 
-    fn rot_left(a: Word, b: Word) -> Word {
+    fn _rot_left(a: Word, b: Word) -> Word {
         (a << b) | (a >> (32-b))
     }
 
@@ -273,7 +273,7 @@ fn hexify(data: Vec<u8>) -> Option<String> {
     let mut data: VecDeque<u8> = data.clone().into();
     let mut out: String = String::with_capacity(2 + data.len() * 2);
     out += "0x";
-    for i in 0..data.len() {
+    for _i in 0..data.len() {
         let byte: u8 = data.pop_front()?;
         let vals: [u8; 2] = [
             byte / 0x10u8,
