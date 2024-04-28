@@ -1,5 +1,7 @@
 
 pub mod hashing {
+    // This module is a port of B-Con's SHA-256 implementation located at
+    // [https://github.com/B-Con/crypto-algorithms/blob/master/sha256.c]
     pub type Word = u32;
 
     pub struct Sha256Hasher {
@@ -151,22 +153,30 @@ pub mod hashing {
             // we're using little endian.
             let mut hash: [u8; 32] = [0u8; 32];
             for tmp in 0..4 {
-                hash[(tmp + 0 ) as usize] =
-                    ((self.state[0usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                hash[(tmp + 0 ) as usize] = 
+                    ((self.state[0usize] >> 
+                      (24 - tmp * 8)) & 0x000000ff) as u8;
                 hash[(tmp + 4 ) as usize] =
-                    ((self.state[1usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                    ((self.state[1usize] >> 
+                      (24 - tmp * 8)) & 0x000000ff) as u8;
                 hash[(tmp + 8 ) as usize] =
-                    ((self.state[2usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                    ((self.state[2usize] >> 
+                      (24 - tmp * 8)) & 0x000000ff) as u8;
                 hash[(tmp + 12) as usize] =
-                    ((self.state[3usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                    ((self.state[3usize] >> 
+                      (24 - tmp * 8)) & 0x000000ff) as u8;
                 hash[(tmp + 16) as usize] =
-                    ((self.state[4usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                    ((self.state[4usize] >> (24 - tmp * 8)) & 0x000000ff) 
+                    as u8;
                 hash[(tmp + 20) as usize] =
-                    ((self.state[5usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                    ((self.state[5usize] >> (24 - tmp * 8)) & 0x000000ff) 
+                    as u8;
                 hash[(tmp + 24) as usize] =
-                    ((self.state[6usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                    ((self.state[6usize] >> (24 - tmp * 8)) & 0x000000ff) 
+                    as u8;
                 hash[(tmp + 28) as usize] =
-                    ((self.state[7usize] >> (24 - tmp * 8)) & 0x000000ff) as u8;
+                    ((self.state[7usize] >> (24 - tmp * 8)) & 0x000000ff) 
+                    as u8;
             }
             hash
         }
@@ -264,8 +274,6 @@ struct HashedPath {
     hash: [u8; 32],
 }
 
-// TODO: Implement a sha-256 hashsum rather than `std::hash::DefaultHasher`
-
 use crate::hashing::Sha256Hasher;
 use std::collections::VecDeque;
 
@@ -319,7 +327,8 @@ fn main() -> Result<(), Error> {
             hash: sha_hasher.sha256_final(),
         };
         if new_hashes.contains_key(&sha_hashed_path.hash) {
-            let mut tmp = new_hashes.get(&sha_hashed_path.hash).unwrap().clone();
+            let mut tmp = new_hashes.get(&sha_hashed_path.hash)
+                .unwrap().clone();
             tmp.push(sha_hashed_path.path);
             new_hashes.insert(sha_hashed_path.hash, tmp);
         } else {

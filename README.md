@@ -6,7 +6,7 @@ digital forensics for detecting unique files by using their hash<br>
 It was used as an excersize in porting basic C code to rust<br>
 
 ## References
-[SHA-256 Algorithm](https://github.com/B-Con/crypto-algorithms/blob/master/sha256.c)<br>
+[B-Con's SHA-256 Algorithm](https://github.com/B-Con/crypto-algorithms/blob/master/sha256.c)<br>
 
 ## Quick Start
 ```console
